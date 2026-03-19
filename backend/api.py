@@ -55,8 +55,18 @@ def home():
 def predict(item: Item):
     df = pd.DataFrame([item.model_dump()])
     df = ohe_transform_full(df)
-    prediction = ml_model["model"].predict(df)
-    return {"prediction": int(prediction[0])}
+
+    THRESHOLD = 0.5  # change this to your desired threshold
+
+    proba = ml_model["model"].predict_proba(df)  # returns [[prob_0, prob_1]]
+    prob_default = proba[0][1]                   # probability of class 1 (default)
+
+    prediction = int(prob_default >= THRESHOLD)  # 1 if above threshold, 0 if below
+
+    return {
+        "prediction": prediction,
+        "probability_default": round(float(prob_default), 4),
+    }
 
 if __name__ == "__main__":
     uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)

@@ -43,6 +43,11 @@ with col2:
     loan_int_rate       = st.number_input("Interest Rate (%)", min_value=1.0, max_value=50.0, value=11.0, step=0.1)
     loan_percent_income = st.number_input("Loan as % of Income", min_value=0.0, max_value=1.0, value=0.20, step=0.01, format="%.2f")
 
+
+st.divider()
+threshold = st.slider("🎚️ Decision Threshold", 0.0, 1.0, 0.5, 0.01)  
+st.caption("Lower threshold = stricter (more applicants flagged as default risk)")
+
 st.divider()
 
 payload = {
