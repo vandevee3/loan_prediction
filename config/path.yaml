@@ -1,0 +1,34 @@
+data_path:
+  models:
+    ohe_home_ownership: '../models/ohe_home_ownership.pkl'
+    ohe_loan_intent: '../models/ohe_loan_intent.pkl'
+    ohe_loan_grade: '../models/ohe_loan_grade.pkl'
+    ohe_default_on_file: '../models/ohe_default_on_file.pkl'
+    logreg_model : '../models/logreg_model.pkl'
+    destree_model : '../models/destree_model.pkl'
+    randfor_model : '../models/randfor_model.pkl'
+    supvec_model : '../models/supvec_model.pkl'
+  data:
+    raw:
+      credit_risk: '../data/raw/credit_risk_dataset.csv'
+    processed:
+      X_train_prep: '../data/processed/X_train_prep.pkl'
+      X_test_prep: '../data/processed/X_test_prep.pkl'
+      X_valid_prep: '../data/processed/X_valid_prep.pkl'
+      y_train_prep: '../data/processed/y_train_prep.pkl'
+      X_train_ros: '../data/processed/X_train_ros.pkl'
+      y_train_ros: '../data/processed/y_train_ros.pkl'
+  input:
+    X_train: '../data/interim/X_train.pkl'
+    x_test: '../data/interim/x_test.pkl'
+    x_valid: '../data/interim/x_valid.pkl'
+  output:
+    y_test: '../data/interim/y_test.pkl'
+    y_train: '../data/interim/y_train.pkl'
+    y_valid: '../data/interim/y_valid.pkl'
+param_path:
+  threshold:
+    logistic_regression : '../parameters/logreg_threshold.json'
+    decision_tree : '../parameters/destree_threshold.json'
+    random_forest : '../parameters/randfor_threshold.json'
+    super_vector : '../parameters/supvec_threshold.json'
