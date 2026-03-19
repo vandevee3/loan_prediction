@@ -56,12 +56,12 @@ def predict(item: Item):
     df = pd.DataFrame([item.model_dump()])
     df = ohe_transform_full(df)
 
-    THRESHOLD = 0.5  # change this to your desired threshold
+    THRESHOLD = 0.3131 
 
-    proba = ml_model["model"].predict_proba(df)  # returns [[prob_0, prob_1]]
-    prob_default = proba[0][1]                   # probability of class 1 (default)
+    proba = ml_model["model"].predict_proba(df)  
+    prob_default = proba[0][1]                  
 
-    prediction = int(prob_default >= THRESHOLD)  # 1 if above threshold, 0 if below
+    prediction = int(prob_default >= THRESHOLD)  
 
     return {
         "prediction": prediction,
