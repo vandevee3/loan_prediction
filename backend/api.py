@@ -1,5 +1,6 @@
 from src.utils import deserialize_data
 from src.processing import ohe_transform_full
+from src.preprocessing import ohe_transform
 from pydantic import BaseModel, Field
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
@@ -11,6 +12,11 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent  
 
 RANDFOR_MODEL_PATH = BASE_DIR / "models" / "randfor_model.pkl"
+OHE_HOME_OWNERSHIP_PATH  = BASE_DIR / "models" / "ohe_home_ownership.pkl"
+OHE_DEFAULT_ON_FILE_PATH = BASE_DIR / "models" / "ohe_default_on_file.pkl"
+OHE_LOAN_GRADE_PATH      = BASE_DIR / "models" / "ohe_loan_grade.pkl"
+OHE_LOAN_INTENT_PATH     = BASE_DIR / "models" / "ohe_loan_intent.pkl"
+
 
 def load_model():
     return deserialize_data(RANDFOR_MODEL_PATH)
@@ -53,8 +59,17 @@ def home():
 
 @app.post('/predict')
 def predict(item: Item):
+    ohe_transform_ownership = deserialize_data(OHE_HOME_OWNERSHIP_PATH)
+    ohe_loan_intent = deserialize_data(OHE_LOAN_INTENT_PATH)
+    ohe_loan_grade = deserialize_data(OHE_LOAN_GRADE_PATH)
+    ohe_default_on_file = deserialize_data(OHE_DEFAULT_ON_FILE_PATH)
+    
     df = pd.DataFrame([item.model_dump()])
-    df = ohe_transform_full(df)
+    df = ohe_transform(df, 'person_home_ownership', 'home_ownership', ohe_transform_ownership)
+    df = ohe_transform(df, 'loan_intent', 'loan_intent', ohe_loan_intent)
+    df = ohe_transform(df, 'loan_grade', 'loan_grade', ohe_loan_grade)
+    df = ohe_transform(df, 'cb_person_default_on_file', 'default_onfile', ohe_default_on_file)
+    # df = ohe_transform_full(df)
 
     THRESHOLD = 0.3131 
 
