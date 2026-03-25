@@ -48,11 +48,6 @@ app = FastAPI(lifespan= lifespan)
 def root():
     return {"message": "ML Prediction API is running", "docs": "/docs"}
 
-@app.get("/best_model")
-def check_best_model():
-    model = load_model()
-    return {f"This is best model : {model.best_estimator_.__class__.__name__}"}
-
 @app.post('/home')
 def home():
     return {"message" : "Hello World"}
@@ -63,7 +58,7 @@ def predict(item: Item):
     ohe_loan_intent = deserialize_data(OHE_LOAN_INTENT_PATH)
     ohe_loan_grade = deserialize_data(OHE_LOAN_GRADE_PATH)
     ohe_default_on_file = deserialize_data(OHE_DEFAULT_ON_FILE_PATH)
-    
+
     df = pd.DataFrame([item.model_dump()])
     df = ohe_transform(df, 'person_home_ownership', 'home_ownership', ohe_transform_ownership)
     df = ohe_transform(df, 'loan_intent', 'loan_intent', ohe_loan_intent)
