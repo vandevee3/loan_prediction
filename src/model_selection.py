@@ -1,4 +1,4 @@
-from .utils import deserialize_data, serialize_data
+from utils import deserialize_data, serialize_data
 from sklearn.metrics import classification_report
 
 def best_model_selection(models_path: str):

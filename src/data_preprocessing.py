@@ -1,4 +1,4 @@
-from .utils import serialize_data, deserialize_data, drop_duplicate_data, median_imputation, create_onehot_encoder, ohe_transform
+from utils import serialize_data, deserialize_data, drop_duplicate_data, median_imputation, create_onehot_encoder, ohe_transform
 import yaml
 
 def data_preprocess():

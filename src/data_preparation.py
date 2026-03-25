@@ -1,4 +1,4 @@
-from .utils import load_data, split_input_output, split_train_test, serialize_data, deserialize_data
+from utils import load_data, split_input_output, split_train_test, serialize_data, deserialize_data
 import yaml
 
 def data_prep():

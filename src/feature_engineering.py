@@ -1,4 +1,4 @@
-from .utils import serialize_data, deserialize_data, random_oversampling
+from utils import serialize_data, deserialize_data, random_oversampling
 import yaml 
 
 def feature_engineering():
